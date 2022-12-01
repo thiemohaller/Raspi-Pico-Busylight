@@ -2,6 +2,9 @@ from machine import Pin,Timer
 from random import randint
 import time
 
+# fancy way: state machine
+# not fancy way: bool
+
 # define PINS
 rgb_red = Pin(11, Pin.OUT)
 rgb_blue = Pin(12, Pin.OUT)
@@ -9,16 +12,11 @@ rgb_green = Pin(13, Pin.OUT)
 button_change_state = Pin(17, Pin.IN, Pin.PULL_UP)
 
 # define values
+isBusyState = False
+
 red_value = 0
 green_value = 255
 blue_value = 100
-
-def change_LED_color():
-    global red_value, green_value, blue_value
-    print('changing values')
-    red_value = randint(0,255)
-    green_value = 0
-    blue_value = randint(0,255)
 
 def button_was_pressed():
     # detect if button was pressed
@@ -31,9 +29,14 @@ def button_was_pressed():
 while True:
     if button_was_pressed():
         print('Button was pressed!')
-        change_LED_color()
+        isBusyState = not isBusyState
+        print('currently in busy state: ', isBusyState)
 
-    rgb_red.value(red_value)
-    rgb_green.value(green_value)
-    rgb_blue.value(blue_value)
-    
+    if isBusyState: 
+        rgb_red.value(255)
+        rgb_green.value(0)
+        rgb_blue.value(0)
+    else: 
+        rgb_red.value(0)
+        rgb_green.value(255)
+        rgb_blue.value(0)
