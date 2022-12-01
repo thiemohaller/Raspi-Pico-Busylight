@@ -1,18 +1,39 @@
 from machine import Pin,Timer
+from random import randint
+import time
 
-led_red = Pin(14, Pin.OUT)
-led_blue = Pin(17, Pin.OUT)
+# define PINS
+rgb_red = Pin(11, Pin.OUT)
+rgb_blue = Pin(12, Pin.OUT)
+rgb_green = Pin(13, Pin.OUT)
+button_change_state = Pin(17, Pin.IN, Pin.PULL_UP)
 
-LED_state_red = True
-LED_state_blue = False
+# define values
+red_value = 0
+green_value = 255
+blue_value = 100
 
-timer = Timer()
+def change_LED_color():
+    global red_value, green_value, blue_value
+    print('changing values')
+    red_value = randint(0,255)
+    green_value = 0
+    blue_value = randint(0,255)
 
-def tick(timer):
-    global led_red, led_blue, LED_state_red, LED_state_blue
-    LED_state_red = not LED_state_red
-    LED_state_blue = not LED_state_blue
-    led_red.value(LED_state_red)
-    led_blue.value(LED_state_blue)
+def button_was_pressed():
+    # detect if button was pressed
+    first = button_change_state.value()
+    time.sleep(0.01)
+    second = button_change_state.value()
+    # * return true once the button is released
+    return not first and second
 
-timer.init(freq=1, mode=timer.PERIODIC, callback=tick)
+while True:
+    if button_was_pressed():
+        print('Button was pressed!')
+        change_LED_color()
+
+    rgb_red.value(red_value)
+    rgb_green.value(green_value)
+    rgb_blue.value(blue_value)
+    
