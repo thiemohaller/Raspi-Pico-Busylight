@@ -14,10 +14,6 @@ button_change_state = Pin(17, Pin.IN, Pin.PULL_UP)
 # define values
 isBusyState = False
 
-red_value = 0
-green_value = 255
-blue_value = 100
-
 def button_was_pressed():
     # detect if button was pressed
     first = button_change_state.value()
