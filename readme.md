@@ -6,7 +6,7 @@ On pressing the button, the state switches between available (green) and busy (r
 # Reset/Install Micropython
 
 * Hold boot button while pluggin the USB in
-* Drag and drop iso ([https://www.raspberrypi.com/documentation/microcontrollers/micropython.html](raspi docs))
+* Drag and drop iso [https://www.raspberrypi.com/documentation/microcontrollers/micropython.html](raspi docs)
 
 # Run Program
 
