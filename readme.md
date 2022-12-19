@@ -1,3 +1,8 @@
+# Raspberry Pi Pico Busylight
+
+This program is a simple script to toggle a RGB light attached to a Raspberry Pi Pico, the schematics are described below.
+On pressing the button, the state switches between available (green) and busy (red)
+
 # Reset/Install Micropython
 
 * Hold boot button while pluggin the USB in
